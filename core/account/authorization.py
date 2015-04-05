@@ -20,7 +20,7 @@ class Authorization():
             self._user = User()
 
         else:
-            self._error_message = "[Authorization] Meta Missing"
+            self._error_message = "Authorization Missing"
 
     def get_user(self):
         return self._user
