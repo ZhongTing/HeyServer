@@ -16,7 +16,7 @@ class Authorization():
         return self._error_message
 
     def auth_request(self, request):
-        if "Authorization" in request.META:
+        if "HTTP_Authorization".upper() in request.META:
             self._user = User()
 
         else:
