@@ -8,6 +8,6 @@ def raise_issue(request):
     auth = Authorization(request)
 
     if auth.is_valid():
-        return JSONResponse.success(json_result={"Hello": "test raise issue"})
+        return JSONResponse.with_200(json_result={"Hello": "test raise issue"})
     else:
-        return JSONResponse.error(error_message=auth.error_message)
+        return JSONResponse.with_403(error_message=auth.error_message)

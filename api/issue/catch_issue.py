@@ -4,4 +4,4 @@ from rest_framework.decorators import api_view
 
 @api_view(['GET'])
 def catch_issue(request):
-    return JSONResponse.success(json_result={"Hello": "test raise issue"})
+    return JSONResponse.with_200(json_result={"Hello": "test catch issue"})

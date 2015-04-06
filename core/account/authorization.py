@@ -16,11 +16,11 @@ class Authorization():
         return self._error_message
 
     def auth_request(self, request):
-        if "HTTP_Authorization".upper() in request.META:
+        if "http_authorization".upper() in request.META:
             self._user = User()
 
         else:
-            self._error_message = "Authorization Missing"
+            self._error_message = "authorization missing!"
 
     def get_user(self):
         return self._user
