@@ -27,5 +27,7 @@ class IssueModel(models.Model):
     good = models.PositiveIntegerField(default=0, blank=False, null=False)
     bad = models.PositiveIntegerField(default=0, blank=False, null=False)
 
+    timestamp = models.DateTimeField(auto_now=True)
+
     class Meta:
         db_table = "issue"
