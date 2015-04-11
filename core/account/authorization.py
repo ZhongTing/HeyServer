@@ -1,4 +1,4 @@
-from core.account.user import User
+from core.account.user_manager import UserManager
 
 
 class Authorization():
@@ -6,8 +6,9 @@ class Authorization():
         self._error_message = None
         self._user = None
 
-        self.auth_request(request)
+        self._auth_request(request)
 
+    @property
     def is_valid(self):
         return self._error_message is None
 
@@ -15,12 +16,17 @@ class Authorization():
     def error_message(self):
         return self._error_message
 
-    def auth_request(self, request):
+    @property
+    def get_user(self):
+        return self._user
+
+    def _auth_request(self, request):
         if "http_authorization".upper() in request.META:
-            self._user = User()
+            token = request.META["http_authorization".upper()]
+            print "Request Token: ", token
+            
+            self._user = UserManager.get_user_from_token(token)
+            print "User: ", self._user
 
         else:
             self._error_message = "authorization missing!"
-
-    def get_user(self):
-        return self._user

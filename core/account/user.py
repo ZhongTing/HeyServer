@@ -1,3 +1,6 @@
 class User():
-    def __init__(self):
-        pass
+    def __init__(self, model):
+        self._model = model
+
+    def __str__(self):
+        return str(self._model.__dict__)
