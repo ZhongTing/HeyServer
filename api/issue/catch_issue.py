@@ -1,4 +1,4 @@
-from core.response.json_response import JSONResponse
+from core.utility.json_response import JSONResponse
 from rest_framework.decorators import api_view
 
 
