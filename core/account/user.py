@@ -1,4 +1,5 @@
 from core.issue.issue_serializer import IssueSerializer
+from core.models import IssueModel
 from core.utility.error_exceptions import Error
 
 
@@ -18,5 +19,11 @@ class User():
         else:
             raise Error(serializer.errors)
 
-    def pull_recommends(self):
-        return {}
+    @property
+    def recommends(self):
+        data = {
+            'actor': list(set(IssueModel.objects.values_list('actor', flat=True))),
+            'event': list(set(IssueModel.objects.values_list('event', flat=True))),
+            'place': list(set(IssueModel.objects.exclude(place__isnull=True).values_list('place', flat=True))),
+        }
+        return data

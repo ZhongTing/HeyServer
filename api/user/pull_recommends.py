@@ -18,7 +18,7 @@ def pull_recommends(request):
 
         # action
         user = UserManager.get_user_from_token(token)
-        result = user.pull_recommends()
+        result = user.recommends
         return JSONResponse.with_200(json_result=result)
 
     except Exception as error:
