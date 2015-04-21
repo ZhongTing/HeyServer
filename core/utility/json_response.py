@@ -9,23 +9,23 @@ class JSONResponse():
 
     @classmethod
     def with_200(cls, json_result=None):
-        json_object = {
-            "status": "success"
-        }
-
-        if json_result is not None:
-            json_object["result"] = json_result
-
-        return cls._response(json_object, status.HTTP_200_OK)
+        return cls._response(True, json_result, status.HTTP_200_OK)
 
     @classmethod
     def with_403(cls, error_message):
-        json_object = {
-            "status": "fail",
-            "result": error_message
-        }
-        return cls._response(json_object, status.HTTP_403_FORBIDDEN)
+        return cls._response(False, error_message, status.HTTP_403_FORBIDDEN)
+
+    @classmethod
+    def with_406(cls, error_message):
+        return cls._response(False, error_message, status.HTTP_406_NOT_ACCEPTABLE)
 
     @staticmethod
-    def _response(json_object, response_status):
-        return HttpResponse(JSONRenderer().render(json_object), status=response_status, content_type="application/json")
+    def _response(success, result, response_code):
+        json_object = {
+            "status": "success" if success else "fail"
+        }
+
+        if result is not None:
+            json_object["result"] = result
+
+        return HttpResponse(JSONRenderer().render(json_object), status=response_code, content_type="application/json")

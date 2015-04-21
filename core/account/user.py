@@ -12,10 +12,8 @@ class User():
         args["user"] = self._user.pk
 
         serializer = IssueSerializer(data=args)
-        print args
         if serializer.is_valid():
             serializer.save()
             return True
         else:
-            print serializer.errors
-            return False
+            return serializer.errors

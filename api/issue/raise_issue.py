@@ -21,16 +21,16 @@ def raise_issue(request):
         "longitude": request.get_data("longitude", null=True),
     }
 
-    #
-    print request
+    # auth
     user = UserManager.get_user_from_token(token)
-
     if user is None:
         return JSONResponse.with_403(error_message=ErrorMessage.authorization_error)
-
     elif not request.is_valid:
         return JSONResponse.with_403(error_message=request.error_message)
 
+    # action
+    result = user.raise_issue(data)
+    if result is True:
+        return JSONResponse.with_200()
     else:
-        user.raise_issue(data)
-        return JSONResponse.with_200(json_result={})
+        return JSONResponse.with_406(error_message=result)
