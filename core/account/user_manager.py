@@ -1,5 +1,6 @@
 from core.account.user import User
 from core.models import UserModel
+from core.utility.error_exceptions import AuthorizationError
 
 
 class UserManager():
@@ -20,4 +21,4 @@ class UserManager():
             return user
 
         except UserModel.DoesNotExist:
-            return None
+            raise AuthorizationError()

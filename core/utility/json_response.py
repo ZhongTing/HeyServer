@@ -15,10 +15,6 @@ class JSONResponse():
     def with_403(cls, error_message):
         return cls._response(False, error_message, status.HTTP_403_FORBIDDEN)
 
-    @classmethod
-    def with_406(cls, error_message):
-        return cls._response(False, error_message, status.HTTP_406_NOT_ACCEPTABLE)
-
     @staticmethod
     def _response(success, result, response_code):
         json_object = {

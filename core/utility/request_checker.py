@@ -1,4 +1,4 @@
-from core.utility.error_message import ErrorMessage
+from core.utility.error_exceptions import ParameterError
 
 
 class RequestChecker():
@@ -38,7 +38,6 @@ class RequestChecker():
         return self._get(self._request.QUERY_PARAMS, key, arg)
 
     def _get(self, request_data, key, arg):
-        value = None
         can_be_null = arg['null'] if 'null' in arg else False
         default_value = arg['default'] if 'default' in arg else None
 
@@ -49,7 +48,7 @@ class RequestChecker():
             value = default_value
 
         else:
-            self._error_message = ErrorMessage.parameter_missing
+            raise ParameterError()
 
         self._checked[key] = value
         return value

@@ -1,4 +1,5 @@
 from core.issue.issue_serializer import IssueSerializer
+from core.utility.error_exceptions import Error
 
 
 class User():
@@ -14,6 +15,8 @@ class User():
         serializer = IssueSerializer(data=args)
         if serializer.is_valid():
             serializer.save()
-            return True
         else:
-            return serializer.errors
+            raise Error(serializer.errors)
+
+    def pull_recommends(self):
+        return {}
