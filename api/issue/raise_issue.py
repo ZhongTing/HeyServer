@@ -33,4 +33,4 @@ def raise_issue(request):
 
     else:
         user.raise_issue(data)
-        return JSONResponse.with_200(json_result={"Hello": "test raise issue"})
+        return JSONResponse.with_200(json_result={})

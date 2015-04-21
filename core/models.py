@@ -19,10 +19,10 @@ class IssueModel(models.Model):
 
     actor = models.CharField(max_length=50, blank=False, null=False)
     event = models.CharField(max_length=50, blank=False, null=False)
-    place = models.CharField(max_length=50, blank=True, null=False)
+    place = models.CharField(max_length=50, blank=True, null=True)
 
-    latitude = models.FloatField(null=True, blank=False)
-    longitude = models.FloatField(null=True, blank=False)
+    latitude = models.FloatField(null=True, blank=True)
+    longitude = models.FloatField(null=True, blank=True)
 
     good = models.PositiveIntegerField(default=0, blank=False, null=False)
     bad = models.PositiveIntegerField(default=0, blank=False, null=False)
