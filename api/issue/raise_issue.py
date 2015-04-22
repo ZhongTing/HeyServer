@@ -1,4 +1,5 @@
 from core.account.user_manager import UserManager
+from core.utility.error_exceptions import Error
 from core.utility.request_checker import RequestChecker
 from core.utility.json_response import JSONResponse
 from rest_framework.decorators import api_view
@@ -26,5 +27,5 @@ def raise_issue(request):
         user.raise_issue(data)
         return JSONResponse.with_200()
 
-    except Exception as error:
+    except Error as error:
         return JSONResponse.with_403(error_message=error.message)
