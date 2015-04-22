@@ -19,8 +19,8 @@ class User():
         else:
             raise Error(serializer.errors)
 
-    @property
-    def recommends(self):
+    @staticmethod
+    def get_recommend_list():
         data = {
             'actor': list(set(IssueModel.objects.values_list('actor', flat=True))),
             'event': list(set(IssueModel.objects.values_list('event', flat=True))),

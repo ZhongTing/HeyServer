@@ -19,7 +19,7 @@ def pull_recommends(request):
 
         # action
         user = UserManager.get_user_from_token(token)
-        result = user.recommends
+        result = user.get_recommend_list()
         return JSONResponse.with_200(json_result=result)
 
     except Error as error:
