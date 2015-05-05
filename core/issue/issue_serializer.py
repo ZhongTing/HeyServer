@@ -7,8 +7,8 @@ class IssueSerializer(serializers.ModelSerializer):
         model = IssueModel
         fields = (
             'user',
-            'actor',
-            'event',
+            'subject',
+            'description',
             'place',
             'latitude',
             'longitude',

@@ -15,8 +15,8 @@ def raise_issue(request):
 
         # POST data
         data = {
-            "actor": request.get_data("actor"),
-            "event": request.get_data("event"),
+            "subject": request.get_data("subject"),
+            "description": request.get_data("description"),
             "place": request.get_data("place", null=True),
             "latitude": request.get_data("latitude", null=True),
             "longitude": request.get_data("longitude", null=True),
