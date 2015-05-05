@@ -20,7 +20,7 @@ def pull_recommends(request):
         # action
         user = UserManager.get_user_from_token(token)
         result = user.get_recommend_list()
-        return JSONResponse.with_200(json_result=result)
+        return JSONResponse.output(result)
 
     except Error as error:
-        return JSONResponse.with_403(error_message=error.message)
+        return JSONResponse.output(error)

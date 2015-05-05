@@ -1,6 +1,6 @@
 from core.issue.issue_serializer import IssueSerializer
 from core.models import IssueModel
-from core.utility.error_exceptions import Error
+from core.utility.error_exceptions import SerializerError
 
 
 class User():
@@ -17,7 +17,7 @@ class User():
         if serializer.is_valid():
             serializer.save()
         else:
-            raise Error(serializer.errors)
+            raise SerializerError(serializer.errors)
 
     @staticmethod
     def get_recommend_list():

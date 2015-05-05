@@ -1,5 +1,5 @@
+from core.utility.error_exceptions import Error
 from django.http import HttpResponse
-from rest_framework import status
 from rest_framework.renderers import JSONRenderer
 
 
@@ -7,21 +7,16 @@ class JSONResponse():
     def __init__(self):
         pass
 
-    @classmethod
-    def with_200(cls, json_result=None):
-        return cls._response(True, json_result, status.HTTP_200_OK)
-
-    @classmethod
-    def with_403(cls, error_message):
-        return cls._response(False, error_message, status.HTTP_403_FORBIDDEN)
-
     @staticmethod
-    def _response(success, result, response_code):
-        json_object = {
-            "status": "success" if success else "fail"
-        }
+    def output(result="", response_code=200):
+        if type(result) is list:
+            raise Exception("[JSONResponse] Result cannot be list!")
 
-        if result is not None:
-            json_object["result"] = result
+        if isinstance(result, Error):
+            content = result.message
+            response_code = result.status_code
 
-        return HttpResponse(JSONRenderer().render(json_object), status=response_code, content_type="application/json")
+        else:
+            content = JSONRenderer().render(result) if type(result) is dict else result
+
+        return HttpResponse(content, status=response_code, content_type="application/json")

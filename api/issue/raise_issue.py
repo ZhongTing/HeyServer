@@ -25,7 +25,7 @@ def raise_issue(request):
         # action
         user = UserManager.get_user_from_token(token)
         user.raise_issue(data)
-        return JSONResponse.with_200()
+        return JSONResponse.output()
 
     except Error as error:
-        return JSONResponse.with_403(error_message=error.message)
+        return JSONResponse.output(error)
