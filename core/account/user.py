@@ -22,8 +22,8 @@ class User():
     @staticmethod
     def get_recommend_list():
         data = {
-            'actor': list(set(IssueModel.objects.values_list('actor', flat=True))),
-            'event': list(set(IssueModel.objects.values_list('event', flat=True))),
+            'subject': list(set(IssueModel.objects.values_list('subject', flat=True))),
+            'description': list(set(IssueModel.objects.values_list('description', flat=True))),
             'place': list(set(IssueModel.objects.exclude(place__isnull=True).values_list('place', flat=True))),
         }
         return data

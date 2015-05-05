@@ -17,8 +17,8 @@ class UserModel(models.Model):
 class IssueModel(models.Model):
     user = models.ForeignKey(UserModel)
 
-    actor = models.CharField(max_length=50, blank=False, null=False)
-    event = models.CharField(max_length=50, blank=False, null=False)
+    subject = models.CharField(max_length=50, blank=False, null=False)
+    description = models.CharField(max_length=50, blank=False, null=False)
     place = models.CharField(max_length=50, blank=True, null=True)
 
     latitude = models.FloatField(null=True, blank=True)
