@@ -6,7 +6,7 @@ from rest_framework.decorators import api_view
 
 
 @api_view(['GET'])
-def catch_issue(request):
+def fetch_issue(request):
     try:
         request = RequestChecker(request)
 
@@ -15,17 +15,15 @@ def catch_issue(request):
 
         # POST data
         data = {
-            "last_read_timestamp": request.get_data("lastReadTimestamp"),
-            "event": request.get_data("event"),
-            "place": request.get_data("place", null=True),
-            "latitude": request.get_data("latitude", null=True),
-            "longitude": request.get_data("longitude", null=True),
+            "last_fetch_issue_id": request.get_param("lastFetchIssueId", null=True, default=0),
         }
 
         # action
         user = UserManager.get_user_from_token(token)
-        user.raise_issue(data)
-        return JSONResponse.output()
+        issues = user.fetch_issue(data["last_fetch_issue_id"])
+        return JSONResponse.output({
+            "issues": issues
+        })
 
     except Error as error:
         return JSONResponse.output(error)

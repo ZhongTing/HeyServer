@@ -20,6 +20,21 @@ class User():
             raise SerializerError(serializer.errors)
 
     @staticmethod
+    def fetch_issue(last_issue_id):
+        issue_models = IssueModel.objects.filter(pk__gt=last_issue_id).all()
+        issues = list()
+        for issue in issue_models:
+            temp_issue = dict()
+            temp_issue['id'] = issue.pk
+            temp_issue['subject'] = issue.subject
+            temp_issue['description'] = issue.description
+            if issue.place:
+                temp_issue['place'] = issue.place
+            issues.append(temp_issue)
+
+        return issues
+
+    @staticmethod
     def get_recommend_list():
         data = {
             'subject': list(set(IssueModel.objects.values_list('subject', flat=True))),
