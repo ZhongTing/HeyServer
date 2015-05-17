@@ -1,0 +1,7 @@
+{
+    "name": "hey-server-backdoor",
+    "version": "1.0.0",
+    "dependencies": {
+        "restler": "^3.2.2"
+    }
+}
