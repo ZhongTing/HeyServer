@@ -1,4 +1,4 @@
-var server_url = "http://140.124.181.195:8000/api/";
+var server_url = "http://127.0.0.1:8000/api/";
 var access_token = "test";
 
 var rest = require('restler');
