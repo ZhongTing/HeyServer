@@ -1,4 +1,4 @@
-from core.account.user_manager import UserManager
+from core.account.user_manager import user_manager
 from core.utility.error_exceptions import Error
 from core.utility.json_response import JSONResponse
 from core.utility.request_checker import RequestChecker
@@ -18,7 +18,7 @@ def pull_recommends(request):
         }
 
         # action
-        user = UserManager.get_user_from_token(token)
+        user = user_manager.get_user_from_token(token)
         result = user.get_recommend_list()
         return JSONResponse.output(result)
 

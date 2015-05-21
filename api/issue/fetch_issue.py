@@ -1,4 +1,4 @@
-from core.account.user_manager import UserManager
+from core.account.user_manager import user_manager
 from core.utility.error_exceptions import Error
 from core.utility.json_response import JSONResponse
 from core.utility.request_checker import RequestChecker
@@ -19,7 +19,7 @@ def fetch_issue(request):
         }
 
         # action
-        user = UserManager.get_user_from_token(token)
+        user = user_manager.get_user_from_token(token)
         issues = user.fetch_issue(data["last_fetch_issue_id"])
         return JSONResponse.output({
             "issues": issues

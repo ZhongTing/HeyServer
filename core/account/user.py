@@ -1,44 +1,32 @@
-from core.issue.issue_serializer import IssueSerializer
-from core.models import IssueModel
-from core.utility.error_exceptions import SerializerError
+from core.issue.issue_manager import IssueManager
+from core.models import UserModel
+from core.recommend.recommend_manager import RecommendManager
 
 
-class User():
-    def __init__(self, model):
-        self._user = model
+class User(UserModel):
+    class Meta:
+        proxy = True
+
+    def __init__(self, *args, **kwargs):
+        super(User, self).__init__(*args, **kwargs)
+        self._issue_manager = IssueManager(self)
+        self._recommend_manager = RecommendManager(self)
 
     def __str__(self):
         return str(self._user.__dict__)
 
+    def update_commends(self, issues):
+        self._recommend_manager.update(issues)
+
     def raise_issue(self, args):
-        args["user"] = self._user.pk
+        self._issue_manager.raise_issue(args)
 
-        serializer = IssueSerializer(data=args)
-        if serializer.is_valid():
-            serializer.save()
-        else:
-            raise SerializerError(serializer.errors)
-
-    @staticmethod
-    def fetch_issue(last_issue_id):
-        issue_models = IssueModel.objects.filter(pk__gt=last_issue_id).all()
+    def fetch_issue(self, last_issue_id):
         issues = list()
-        for issue in issue_models:
-            temp_issue = dict()
-            temp_issue['id'] = issue.pk
-            temp_issue['subject'] = issue.subject
-            temp_issue['description'] = issue.description
-            if issue.place:
-                temp_issue['place'] = issue.place
-            issues.append(temp_issue)
+        for issue in self._issue_manager.fetch_issue(last_issue_id):
+            issues.append(issue.response_data())
 
         return issues
 
-    @staticmethod
-    def get_recommend_list():
-        data = {
-            'subject': list(set(IssueModel.objects.values_list('subject', flat=True))),
-            'description': list(set(IssueModel.objects.values_list('description', flat=True))),
-            'place': list(set(IssueModel.objects.exclude(place__isnull=True).values_list('place', flat=True))),
-        }
-        return data
+    def get_recommend_list(self):
+        self._recommend_manager.get_commend_list()

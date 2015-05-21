@@ -13,37 +13,6 @@ class UserModel(models.Model):
         db_table = "user"
 
 
-class Subject(models.Model):
-    subject_id = models.BigIntegerField(unique=True, blank=False, null=False, primary_key=True)
-    content = models.CharField(max_length=50, blank=False, null=False, unique=True)
-    count = models.PositiveIntegerField(default=0, blank=False, null=False)
-
-    class Meta:
-        db_table = "subject"
-
-
-class Description(models.Model):
-    subject_id = models.ForeignKey(Subject)
-    description_id = models.BigIntegerField(unique=True, blank=False, null=False)
-    content = models.CharField(max_length=50, blank=False, null=False, unique=True)
-    count = models.PositiveIntegerField(default=0, blank=False, null=False)
-
-    class Meta:
-        unique_together = ("subject_id", "description_id")
-        db_table = "description"
-
-
-class Place(models.Model):
-    subject_id = models.ForeignKey(Subject)
-    place_id = models.BigIntegerField(unique=True, blank=False, null=False)
-    content = models.CharField(max_length=50, blank=False, null=False, unique=True)
-    count = models.PositiveIntegerField(default=0, blank=False, null=False)
-
-    class Meta:
-        unique_together = ("subject_id", "place_id")
-        db_table = "place"
-
-
 class IssueModel(models.Model):
     user = models.ForeignKey(UserModel)
     privacy_mode = models.BooleanField(default=False, blank=False, null=False)
