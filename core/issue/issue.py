@@ -14,6 +14,7 @@ class Issue(IssueModel):
         data['id'] = self.pk
         data['subject'] = self.subject
         data['description'] = self.description
+        data['timestamp'] = self.timestamp
         if self.place:
             data['place'] = self.place
 
