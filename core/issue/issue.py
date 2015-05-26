@@ -8,9 +8,6 @@ class Issue(IssueModel):
 
     def __init__(self, *args, **kwargs):
         super(Issue, self).__init__(*args, **kwargs)
-        self.__dict__["subject_key"] = Utility.hash_to_key(self.subject)
-        self.__dict__["description_key"] = Utility.hash_to_key(self.description)
-        self.__dict__["place_key"] = Utility.hash_to_key(self.place)
 
     def response_data(self):
         data = dict()
@@ -21,3 +18,19 @@ class Issue(IssueModel):
             data['place'] = self.place
 
         return data
+
+    @property
+    def subject_key(self):
+        return self._key(self.subject)
+
+    @property
+    def description_key(self):
+        return self._key(self.description)
+
+    @property
+    def place_key(self):
+        return self._key(self.place)
+
+    @staticmethod
+    def _key(content):
+        return Utility.hash_to_key(content)

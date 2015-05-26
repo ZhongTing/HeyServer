@@ -5,6 +5,7 @@ class RecommendManager():
 
     def update(self, issues):
         for issue in issues:
+            print issue.test_key
             if issue.subject_key in self._recommends:
                 self._recommends[issue.subject_key]["count"] += 1
 
