@@ -1,11 +1,14 @@
+from core.issue.issue import Issue
+
+
 class RecommendManager():
     def __init__(self, user):
         self._user = user
         self._recommends = dict()
+        self.update(Issue.objects.all())
 
     def update(self, issues):
         for issue in issues:
-            print issue.test_key
             if issue.subject_key in self._recommends:
                 self._recommends[issue.subject_key]["count"] += 1
 

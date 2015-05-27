@@ -41,4 +41,4 @@ class User(UserModel):
         return issues
 
     def get_recommend_list(self):
-        self._recommend_manager.get_commend_list()
+        return self._recommend_manager.get_commend_list()
