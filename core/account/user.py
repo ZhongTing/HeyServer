@@ -27,7 +27,7 @@ class User(UserModel):
 
     def fetch_issue(self, last_issue_id):
         now = datetime.now()
-        minutes = 5
+        minutes = 1
 
         issues = list()
         for issue in self._issue_manager.fetch_issue(last_issue_id):
@@ -35,7 +35,8 @@ class User(UserModel):
             issues.append(issue.response_data())
 
             now -= timedelta(minutes=random.randrange(minutes, minutes * 3))
-            minutes = math.floor(minutes * 1.1)
+            minutes = math.ceil(minutes * 1.5)
+            print minutes
 
         return issues
 
