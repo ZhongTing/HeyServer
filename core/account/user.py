@@ -1,3 +1,7 @@
+import random
+from datetime import datetime, timedelta
+import math
+
 from core.issue.issue_manager import IssueManager
 from core.models import UserModel
 from core.recommend.recommend_manager import RecommendManager
@@ -22,9 +26,16 @@ class User(UserModel):
         self._issue_manager.raise_issue(args)
 
     def fetch_issue(self, last_issue_id):
+        now = datetime.now()
+        minutes = 5
+
         issues = list()
         for issue in self._issue_manager.fetch_issue(last_issue_id):
+            issue.timestamp = now
             issues.append(issue.response_data())
+
+            now -= timedelta(minutes=random.randrange(minutes, minutes * 3))
+            minutes = math.floor(minutes * 1.1)
 
         return issues
 
