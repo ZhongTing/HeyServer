@@ -35,8 +35,7 @@ class User(UserModel):
             issues.append(issue.response_data())
 
             now -= timedelta(minutes=random.randrange(minutes, minutes * 3))
-            minutes = math.ceil(minutes * 1.5)
-            print minutes
+            minutes = math.ceil(minutes * 1.5) % (60 * 60)
 
         return issues
 
