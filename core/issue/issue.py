@@ -41,15 +41,16 @@ class Issue(IssueModel):
         return Utility.hash_to_key(content)
 
     def save_photo(self, photo_file):
-        photo_url, photo_path = self.get_photo_path()
+        if photo_file is not None:
+            photo_url, photo_path = self.get_photo_path()
 
-        save_file = open(photo_path, "wb")
-        for chunk in photo_file:
-            save_file.write(chunk)
-        save_file.close()
+            save_file = open(photo_path, "wb")
+            for chunk in photo_file:
+                save_file.write(chunk)
+            save_file.close()
 
-        self.photo_url = photo_url
-        self.save()
+            self.photo_url = photo_url
+            self.save()
 
     def get_photo_path(self):
         path = "issue/%s/%s.png"
