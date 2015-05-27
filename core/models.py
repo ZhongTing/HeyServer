@@ -20,7 +20,7 @@ class IssueModel(models.Model):
     subject = models.CharField(max_length=50, blank=False, null=False)
     description = models.CharField(max_length=50, blank=False, null=False)
     place = models.CharField(max_length=50, blank=True, null=True)
-    image_filename = models.CharField(max_length=100, blank=True, null=True)
+    photo_url = models.CharField(max_length=100, blank=True, null=True)
 
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)

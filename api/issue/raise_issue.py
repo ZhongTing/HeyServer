@@ -18,6 +18,7 @@ def raise_issue(request):
             "subject": request.get_data("subject"),
             "description": request.get_data("description"),
             "place": request.get_data("place", null=True),
+            "photo": request.get_file("photo", null=True),
             "latitude": request.get_data("latitude", null=True),
             "longitude": request.get_data("longitude", null=True),
         }

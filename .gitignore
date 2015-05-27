@@ -118,3 +118,4 @@ crashlytics.properties
 crashlytics-build.properties
 
 /tools/node_modules/
+/photo/

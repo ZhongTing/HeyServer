@@ -1,5 +1,9 @@
+from datetime import datetime
+
+from app.settings import STATIC_ROOT, STATIC_URL
 from core.models import IssueModel
 from core.utility.utility import Utility
+import os
 
 
 class Issue(IssueModel):
@@ -35,3 +39,29 @@ class Issue(IssueModel):
     @staticmethod
     def _key(content):
         return Utility.hash_to_key(content)
+
+    def save_photo(self, photo_file):
+        photo_url, photo_path = self.get_photo_path()
+
+        save_file = open(photo_path, "wb")
+        for chunk in photo_file:
+            save_file.write(chunk)
+        save_file.close()
+
+        self.photo_url = photo_url
+        self.save()
+
+    def get_photo_path(self):
+        path = "issue/%s/%s.png"
+        today = self.timestamp.strftime("%Y%m%d")
+        filename = Utility.hash_to_key(datetime.utcnow())
+
+        path = path % (today, filename)
+        photo_url = STATIC_URL + path
+        photo_path = os.path.join(STATIC_ROOT, path)
+        folder = os.path.dirname(photo_path)
+
+        if not os.path.exists(folder):
+            os.makedirs(folder)
+
+        return photo_url, photo_path

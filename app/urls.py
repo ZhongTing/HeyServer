@@ -12,8 +12,6 @@ urlpatterns += patterns(
     url(r'^api/user/pull/recommends', 'pull_recommends'),
 )
 
-
-print STATIC_ROOT
 urlpatterns += patterns(
     '',
     url(r'^photo/(?P<path>.*)$', 'django.views.static.serve', {'document_root': STATIC_ROOT})
