@@ -1,3 +1,4 @@
+from app.settings import STATIC_ROOT
 from django.conf.urls import patterns, url
 
 urlpatterns = patterns(
@@ -9,4 +10,11 @@ urlpatterns = patterns(
 urlpatterns += patterns(
     'api.user',
     url(r'^api/user/pull/recommends', 'pull_recommends'),
+)
+
+
+print STATIC_ROOT
+urlpatterns += patterns(
+    '',
+    url(r'^photo/(?P<path>.*)$', 'django.views.static.serve', {'document_root': STATIC_ROOT})
 )
