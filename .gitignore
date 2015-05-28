@@ -119,3 +119,4 @@ crashlytics-build.properties
 
 /tools/node_modules/
 /photo/
+/run_script/
