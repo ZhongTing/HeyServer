@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from app.settings import STATIC_ROOT, STATIC_URL
+from app.settings import STATIC_ROOT, STATIC_URL, SERVER_URL
 from core.models import IssueModel
 from core.utility.utility import Utility
 import os
@@ -21,6 +21,8 @@ class Issue(IssueModel):
         data['timestamp'] = self.timestamp
         if self.place:
             data['place'] = self.place
+        if self.photo_url:
+            data["photoURL"] = "%s%s" % (SERVER_URL, self.photo_url)
 
         return data
 
@@ -42,7 +44,7 @@ class Issue(IssueModel):
 
     def save_photo(self, photo_file):
         if photo_file is not None:
-            photo_url, photo_path = self.get_photo_path()
+            photo_url, photo_path = self._create_photo_info()
 
             save_file = open(photo_path, "wb")
             for chunk in photo_file:
@@ -52,7 +54,7 @@ class Issue(IssueModel):
             self.photo_url = photo_url
             self.save()
 
-    def get_photo_path(self):
+    def _create_photo_info(self):
         path = "issue/%s/%s.png"
         today = self.timestamp.strftime("%Y%m%d")
         filename = Utility.hash_to_key(datetime.utcnow())
