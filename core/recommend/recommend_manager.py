@@ -46,10 +46,10 @@ class RecommendManager():
         subject["places"][issue.place_key] = self.places[issue.place_key]
 
     def get_commend_list(self):
-        subjects = list(reversed(sorted(self.subjects.items(), key=lambda s: s[1]["count"])))
-
         recommends = dict()
+
         recommend_subjects = recommends["subjects"] = dict()
+        subjects = list(reversed(sorted(self.subjects.items(), key=lambda s: s[1]["count"])))
         for key, subject in subjects:
             subject_content = subject["content"]
             recommend_subjects[subject_content] = {
@@ -63,6 +63,20 @@ class RecommendManager():
 
             places = list(reversed(sorted(subject["places"].items(), key=lambda s: s[1]["count"])))
             for place in places:
+                if place[1]["content"] is None:
+                    continue
                 recommend_subjects[subject_content]["places"].append(place[1]["content"])
+
+        recommend_descriptions = recommends["descriptions"] = list()
+        descriptions = list(reversed(sorted(self.descriptions.items(), key=lambda s: s[1]["count"])))
+        for key, description in descriptions:
+            recommend_descriptions.append(description["content"])
+
+        recommend_places = recommends["places"] = list()
+        places = list(reversed(sorted(self.places.items(), key=lambda s: s[1]["count"])))
+        for key, place in places:
+            if place["content"] is None:
+                continue
+            recommend_places.append(place["content"])
 
         return recommends
