@@ -4,41 +4,52 @@ from core.issue.issue import Issue
 class RecommendManager():
     def __init__(self, user):
         self._user = user
-        self._recommends = dict()
+        self.subjects = dict()
+        self.descriptions = dict()
+        self.places = dict()
+
         self.update(Issue.objects.all())
 
     def update(self, issues):
         for issue in issues:
-            if issue.subject_key in self._recommends:
-                self._recommends[issue.subject_key]["count"] += 1
+            self._add_subject(issue)
+            self._add_description(issue)
+            self._add_place(issue)
 
-            else:
-                self._recommends[issue.subject_key] = {
-                    "content": issue.subject,
-                    "descriptions": dict(),
-                    "places": dict(),
-                    "count": 1
-                }
+    @staticmethod
+    def _add(collection, key, value):
+        if key in collection:
+            collection[key]["count"] += 1
+        else:
+            collection[key] = {
+                "content": value,
+                "count": 1
+            }
 
-            subject = self._recommends[issue.subject_key]
-            if issue.description_key in subject["descriptions"]:
-                description = subject["descriptions"][issue.description_key]
-                description["count"] += 1
-            else:
-                subject["descriptions"][issue.description_key] = {
-                    "content": issue.description,
-                    "count": 1
-                }
+    def _add_subject(self, issue):
+        self._add(self.subjects, issue.subject_key, issue.subject)
+        self.descriptions[issue.subject_key] = {}
+        self.places[issue.subject_key] = {}
 
-            if issue.place_key is not None:
-                if issue.place_key in subject["places"]:
-                    place = subject["places"][issue.place_key]
-                    place["count"] += 1
-                else:
-                    subject["places"][issue.place_key] = {
-                        "content": issue.place,
-                        "count": 1
-                    }
+    def _add_description(self, issue):
+        self._add(self.descriptions[issue.subject_key], issue.description_key, issue.description)
+
+    def _add_place(self, issue):
+        self._add(self.places[issue.subject_key], issue.place_key, issue.place)
 
     def get_commend_list(self):
-        return self._recommends
+        recommends = dict()
+        recommends["subjects"] = dict()
+        for key, subject in self.subjects.iteritems():
+            subject_content = subject["content"]
+            recommends["subjects"][subject_content] = {
+                "descriptions": list(),
+                "places": list(),
+            }
+            for none, description in self.descriptions[key].iteritems():
+                if description["content"] is not None:
+                    recommends["subjects"][subject_content]["descriptions"].append(description["content"])
+            for none, place in self.places[key].iteritems():
+                if place["content"] is not None:
+                    recommends["subjects"][subject_content]["places"].append(place["content"])
+        return recommends
