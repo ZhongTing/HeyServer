@@ -49,7 +49,7 @@ class RecommendManager():
         recommends = dict()
 
         recommend_subjects = recommends["subjects"] = dict()
-        subjects = list(reversed(sorted(self.subjects.items(), key=lambda s: s[1]["count"])))
+        subjects = list(sorted(self.subjects.items(), key=lambda s: -s[1]["count"]))
         for key, subject in subjects:
             subject_content = subject["content"]
             recommend_subjects[subject_content] = {
@@ -57,23 +57,23 @@ class RecommendManager():
                 "places": list(),
             }
 
-            descriptions = list(reversed(sorted(subject["descriptions"].items(), key=lambda s: s[1]["count"])))
+            descriptions = list(sorted(subject["descriptions"].items(), key=lambda s: -s[1]["count"]))
             for description in descriptions:
                 recommend_subjects[subject_content]["descriptions"].append(description[1]["content"])
 
-            places = list(reversed(sorted(subject["places"].items(), key=lambda s: s[1]["count"])))
+            places = list(sorted(subject["places"].items(), key=lambda s: -s[1]["count"]))
             for place in places:
                 if place[1]["content"] is None:
                     continue
                 recommend_subjects[subject_content]["places"].append(place[1]["content"])
 
         recommend_descriptions = recommends["descriptions"] = list()
-        descriptions = list(reversed(sorted(self.descriptions.items(), key=lambda s: s[1]["count"])))
+        descriptions = list(sorted(self.descriptions.items(), key=lambda s: -s[1]["count"]))
         for key, description in descriptions:
             recommend_descriptions.append(description["content"])
 
         recommend_places = recommends["places"] = list()
-        places = list(reversed(sorted(self.places.items(), key=lambda s: s[1]["count"])))
+        places = list(sorted(self.places.items(), key=lambda s: -s[1]["count"]))
         for key, place in places:
             if place["content"] is None:
                 continue
