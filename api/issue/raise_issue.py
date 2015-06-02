@@ -17,6 +17,7 @@ def raise_issue(request):
         data = {
             "subject": request.get_data("subject"),
             "description": request.get_data("description"),
+            "privacy_mode": request.get_bool_data("privacy"),
             "place": request.get_data("place", null=True),
             "photo": request.get_file("photo", null=True),
             "latitude": request.get_data("latitude", null=True),

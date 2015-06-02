@@ -10,6 +10,7 @@ class IssueSerializer(serializers.ModelSerializer):
             'subject',
             'description',
             'place',
+            'privacy_mode',
             'latitude',
             'longitude',
         )
