@@ -1,3 +1,4 @@
+from types import UnicodeType, StringType
 from core.utility.error_exceptions import ParameterError
 
 
@@ -36,7 +37,6 @@ class RequestChecker():
 
     def get_bool_data(self, key, **arg):
         value = self.get_data(key, **arg)
-        print value
         return self._convert_to_bool(value)
 
     def get_file(self, key, **arg):
@@ -47,12 +47,13 @@ class RequestChecker():
 
     @staticmethod
     def _convert_to_bool(value):
-        if value.lower() in ["true"]:
-            value = True
-        else:
-            value = False
+        if type(value) in [UnicodeType, StringType]:
+            value = value.lower()
 
-        return value
+        if value in [True, "true"]:
+            return True
+        else:
+            return False
 
     def _get(self, request_data, key, arg):
         can_be_null = arg['null'] if 'null' in arg else False
