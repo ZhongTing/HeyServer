@@ -32,7 +32,7 @@ class User(UserModel):
         issues = list()
         for issue in self._issue_manager.fetch_issue(last_issue_id):
             issue.timestamp = now
-            issues.append(issue.response_data())
+            issues = [issue.response_data()] + issues
 
             now -= timedelta(minutes=random.randrange(minutes, minutes * 3))
             minutes = math.ceil(minutes * 1.5) % (60 * 60)
