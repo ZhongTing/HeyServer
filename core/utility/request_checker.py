@@ -61,7 +61,7 @@ class RequestChecker():
 
         if key in request_data:
             value = request_data[key]
-            if len(value.strip()) == 0:
+            if type(value) in [UnicodeType, StringType] and len(value.strip()) == 0:
                 raise ParameterError()
 
         elif can_be_null:
