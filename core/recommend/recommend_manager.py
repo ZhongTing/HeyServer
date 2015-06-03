@@ -11,9 +11,10 @@ class RecommendManager():
         self.places.clear()
 
         for issue in issues:
-            self._add_subject(issue)
-            self._add_description(issue)
-            self._add_place(issue)
+            if not issue.privacy_mode:
+                self._add_subject(issue)
+                self._add_description(issue)
+                self._add_place(issue)
 
     @staticmethod
     def _add(collection, key, value):
