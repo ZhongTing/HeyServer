@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 import math
 
 from core.issue.issue_manager import IssueManager
-from core.models import UserModel, IssueModel
+from core.models import UserModel
 from core.recommend.recommend_manager import RecommendManager
 
 
@@ -39,15 +39,6 @@ class User(UserModel):
 
         return issues
 
-    # def get_recommend_list(self):
-    # return self._recommend_manager.get_commend_list()
-
-    @staticmethod
-    def get_recommend_list():
-        data = {
-            'subject': list(set(IssueModel.objects.values_list('subject', flat=True))),
-            'description': list(set(IssueModel.objects.values_list('description', flat=True))),
-            'place': list(set(IssueModel.objects.exclude(place__isnull=True).values_list('place', flat=True))),
-        }
-        return data
+    def get_recommend_list(self):
+        return self._recommend_manager.get_commend_list()
 
