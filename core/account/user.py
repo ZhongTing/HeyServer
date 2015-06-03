@@ -2,6 +2,8 @@ import random
 from datetime import datetime, timedelta
 import math
 
+from core.issue.issue import Issue
+
 from core.issue.issue_manager import IssueManager
 from core.models import UserModel
 from core.recommend.recommend_manager import RecommendManager
@@ -16,10 +18,13 @@ class User(UserModel):
         self._issue_manager = IssueManager(self)
         self._recommend_manager = RecommendManager(self)
 
-    def __str__(self):
-        return str(self._user.__dict__)
+        self.update_commends()
 
-    def update_commends(self, issues):
+    def __str__(self):
+        return str(self.__dict__)
+
+    def update_commends(self):
+        issues = Issue.objects.all()
         self._recommend_manager.update(issues)
 
     def raise_issue(self, args):

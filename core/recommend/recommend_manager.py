@@ -1,6 +1,3 @@
-from core.issue.issue import Issue
-
-
 class RecommendManager():
     def __init__(self, user):
         self._user = user
@@ -8,9 +5,11 @@ class RecommendManager():
         self.descriptions = dict()
         self.places = dict()
 
-        self.update(Issue.objects.all())
-
     def update(self, issues):
+        self.subjects.clear()
+        self.descriptions.clear()
+        self.places.clear()
+
         for issue in issues:
             self._add_subject(issue)
             self._add_description(issue)
