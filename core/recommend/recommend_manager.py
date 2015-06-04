@@ -48,24 +48,26 @@ class RecommendManager():
     def get_commend_list(self):
         recommends = dict()
 
-        recommend_subjects = recommends["subjects"] = dict()
+        recommend_subjects = recommends["subjects"] = list()
         subjects = list(sorted(self.subjects.items(), key=lambda s: -s[1]["count"]))
         for key, subject in subjects:
-            subject_content = subject["content"]
-            recommend_subjects[subject_content] = {
+            subject_object = {
+                "content": subject["content"],
+                "count": subject["count"],
                 "descriptions": list(),
                 "places": list(),
             }
+            recommend_subjects.append(subject_object)
 
             descriptions = list(sorted(subject["descriptions"].items(), key=lambda s: -s[1]["count"]))
             for description in descriptions:
-                recommend_subjects[subject_content]["descriptions"].append(description[1]["content"])
+                subject_object["descriptions"].append(description[1]["content"])
 
             places = list(sorted(subject["places"].items(), key=lambda s: -s[1]["count"]))
             for place in places:
                 if place[1]["content"] is None:
                     continue
-                recommend_subjects[subject_content]["places"].append(place[1]["content"])
+                subject_object["places"].append(place[1]["content"])
 
         recommend_descriptions = recommends["descriptions"] = list()
         descriptions = list(sorted(self.descriptions.items(), key=lambda s: -s[1]["count"]))
