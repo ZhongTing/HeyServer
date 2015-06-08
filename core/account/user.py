@@ -31,18 +31,18 @@ class User(UserModel):
         self._issue_manager.raise_issue(args)
 
     def fetch_issue(self, last_issue_id):
-        now = datetime.now()
-        minutes = 1
+        # now = datetime.now()
+        # minutes = 1
+        #
+        # issues = list()
+        # for issue in self._issue_manager.fetch_issue(last_issue_id):
+        #     issue.timestamp = now
+        #     issues = [issue.response_data()] + issues
+        #
+        #     now -= timedelta(minutes=random.randrange(minutes, minutes * 3))
+        #     minutes = math.ceil(minutes * 1.5) % (60 * 60)
 
-        issues = list()
-        for issue in self._issue_manager.fetch_issue(last_issue_id):
-            issue.timestamp = now
-            issues = [issue.response_data()] + issues
-
-            now -= timedelta(minutes=random.randrange(minutes, minutes * 3))
-            minutes = math.ceil(minutes * 1.5) % (60 * 60)
-
-        return issues
+        return self._issue_manager.fetch_issue(last_issue_id)
 
     def get_recommend_list(self):
         return self._recommend_manager.get_commend_list()
