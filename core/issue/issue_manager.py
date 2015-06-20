@@ -1,6 +1,6 @@
 from core.issue.issue import Issue
 from core.issue.issue_serializer import IssueSerializer
-from core.utility.error_exceptions import SerializerError
+from core.utility.error_exceptions import SerializerError, IssueNotFound
 
 
 class IssueManager():
@@ -20,3 +20,10 @@ class IssueManager():
             issue.save_photo(args["photo"])
         else:
             raise SerializerError(serializer.errors)
+
+    @staticmethod
+    def get_issue_from_id(issue_id):
+        try:
+            return Issue.objects.get(pk=issue_id)
+        except Issue.DoesNotExist:
+            raise IssueNotFound()

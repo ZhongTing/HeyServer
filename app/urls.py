@@ -5,6 +5,8 @@ urlpatterns = patterns(
     'api.issue',
     url(r'^api/issue/raise$', 'raise_issue'),
     url(r'^api/issue/fetch$', 'fetch_issue'),
+    url(r'^api/issue/like$', 'issue_like'),
+    url(r'^api/issue/regret', 'issue_regret'),
 )
 
 urlpatterns += patterns(

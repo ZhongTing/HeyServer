@@ -34,3 +34,8 @@ class SerializerError(Error):
         if not DEBUG:
             serializer_errors = "serializer error!"
         super(SerializerError, self).__init__(serializer_errors, status.HTTP_417_EXPECTATION_FAILED)
+
+
+class IssueNotFound(Error):
+    def __init__(self):
+        super(IssueNotFound, self).__init__("issue not found!", status.HTTP_404_NOT_FOUND)

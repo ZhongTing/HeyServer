@@ -4,8 +4,7 @@
     "pk": 1,
     "fields": {
       "user_id": 103598011,
-      "access_token": "test",
-      "student_id": "103598011"
+      "access_token": "test"
     }
   }
 ]
