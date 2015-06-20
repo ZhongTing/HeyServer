@@ -36,6 +36,16 @@ class SerializerError(Error):
         super(SerializerError, self).__init__(serializer_errors, status.HTTP_417_EXPECTATION_FAILED)
 
 
+class DeviceIdentityExistedError(Error):
+    def __init__(self):
+        super(DeviceIdentityExistedError, self).__init__("device has registered!", status.HTTP_409_CONFLICT)
+
+
 class IssueNotFound(Error):
     def __init__(self):
         super(IssueNotFound, self).__init__("issue not found!", status.HTTP_404_NOT_FOUND)
+
+
+class CouponError(Error):
+    def __init__(self):
+        super(CouponError, self).__init__("coupon is not valid!", status.HTTP_403_FORBIDDEN)

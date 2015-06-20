@@ -2,7 +2,9 @@ import threading
 
 from core.account.user import User
 from core.models import UserModel
-from core.utility.error_exceptions import AuthorizationError
+from core.utility.error_exceptions import AuthorizationError, DeviceIdentityExistedError
+from core.utility.utility import Utility
+from django.db import IntegrityError
 
 
 class UserManager():
@@ -27,3 +29,16 @@ class UserManager():
             user.update_commends()
 
         threading.Timer(5, self.update_all_user_recommends).start()
+
+    @staticmethod
+    def register(coupon, device_identity):
+        user_identity = Utility.hash_to_key(device_identity)
+        token = Utility.generate_token()
+
+        try:
+            user = User.objects.create(user_id=user_identity, device_identity=device_identity, access_token=token)
+        except IntegrityError:
+            raise DeviceIdentityExistedError()
+
+        coupon.use()
+        return user

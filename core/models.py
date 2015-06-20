@@ -1,9 +1,21 @@
 from django.db import models
 
 
+class CouponModel(models.Model):
+    coupon_code = models.CharField(max_length=20, unique=True, blank=False, null=False)
+    used = models.BooleanField(default=False, null=False)
+
+    class Meta:
+        db_table = "coupon"
+
+
 class UserModel(models.Model):
     user_id = models.BigIntegerField(unique=True, blank=False, null=False, primary_key=True)
-    access_token = models.CharField(max_length=50, default='', blank=False, unique=True)
+    access_token = models.CharField(max_length=50, blank=False, null=False, unique=True)
+
+    device_identity = models.CharField(max_length=50, blank=False, null=False)
+
+    notification_token = models.CharField(max_length=180, default='')
 
     class Meta:
         db_table = "user"

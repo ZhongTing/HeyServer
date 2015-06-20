@@ -1,4 +1,5 @@
 import sys
+import uuid
 
 
 class Utility():
@@ -11,3 +12,7 @@ class Utility():
             return content
         # print content, hash(content) % sys.maxsize
         return hash(content) % sys.maxsize
+
+    @staticmethod
+    def generate_token():
+        return str(uuid.uuid4()).replace("-", "")

@@ -4,7 +4,8 @@
     "pk": 1,
     "fields": {
       "user_id": 103598011,
-      "access_token": "test"
+      "access_token": "test",
+      "device_identity": "KemingChen'sIMEI"
     }
   }
 ]
