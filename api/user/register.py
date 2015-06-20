@@ -20,6 +20,13 @@ def register(request):
         }
 
         # action
+
+        # test code
+        if data["coupon_code"] == "test":
+            coupon = Coupon.objects.get(coupon_code="test")
+            coupon.used = False
+            coupon.save()
+
         coupon = Coupon.get(data["coupon_code"])
 
         user = UserManager.register(coupon, data["device_identity"])
