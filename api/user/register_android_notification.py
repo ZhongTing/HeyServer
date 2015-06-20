@@ -15,18 +15,12 @@ def register_android_notification(request):
 
         # POST data
         data = {
-            "subject": request.get_data("subject"),
-            "description": request.get_data("description"),
-            "privacy_mode": request.get_bool_data("privacy", null=True, default=False),
-            "place": request.get_data("place", null=True),
-            "photo": request.get_file("photo", null=True),
-            "latitude": request.get_data("latitude", null=True),
-            "longitude": request.get_data("longitude", null=True),
+            "notification_token": request.get_data("gcmToken"),
         }
 
         # action
         user = user_manager.get_user_from_token(token)
-        user.raise_issue(data)
+        user.update_notification_token(data["notification_token"])
         return JSONResponse.output()
 
     except Error as error:
