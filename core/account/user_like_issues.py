@@ -1,5 +1,6 @@
 from core.issue.issue_manager import IssueManager
 from core.models import UserLikeIssuesModel
+from django.db.models import F
 
 
 class UserLikeIssues():
@@ -10,11 +11,16 @@ class UserLikeIssues():
         relation = self._get_user_like_issue_relation(issue_id)
         if relation is None:
             issue = IssueManager.get_issue_from_id(issue_id)
+            issue.good = F('good') + 1
+            issue.save()
             UserLikeIssuesModel.objects.create(user=self._user, issue=issue)
 
     def remove_issue(self, issue_id):
         relation = self._get_user_like_issue_relation(issue_id)
         if relation is not None:
+            issue = IssueManager.get_issue_from_id(issue_id)
+            issue.good = F('good') - 1
+            issue.save()
             relation.delete()
 
     def _get_user_like_issue_relation(self, issue_id):
