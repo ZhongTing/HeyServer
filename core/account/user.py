@@ -20,6 +20,12 @@ class User(UserModel):
     def __str__(self):
         return str(self.__dict__)
 
+    @property
+    def token(self):
+        return {
+            "token": self.access_token
+        }
+
     def update_commends(self):
         issues = Issue.objects.all()
         self._recommend_manager.update(issues)

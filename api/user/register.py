@@ -12,7 +12,6 @@ def register(request):
         request = RequestChecker(request)
 
         # header
-        token = request.get_token()
 
         # POST data
         data = {
@@ -24,10 +23,7 @@ def register(request):
         coupon = Coupon.get(data["coupon_code"])
 
         user = UserManager.register(coupon, data["device_identity"])
-
-        return JSONResponse.output({
-            "token": user.access_token
-        })
+        return JSONResponse.output(user.token)
 
     except Error as error:
         return JSONResponse.output(error)

@@ -24,6 +24,14 @@ class UserManager():
         except UserModel.DoesNotExist:
             raise AuthorizationError()
 
+    @staticmethod
+    def get_user_from_device_identity(device_identity):
+        user_identity = Utility.hash_to_key(device_identity)
+        try:
+            return User.objects.get(user_id=user_identity)
+        except User.DoesNotExist:
+            raise AuthorizationError()
+
     def update_all_user_recommends(self):
         for token, user in self.__user_token_cache.iteritems():
             user.update_commends()

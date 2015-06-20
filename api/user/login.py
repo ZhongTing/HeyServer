@@ -11,23 +11,15 @@ def login(request):
         request = RequestChecker(request)
 
         # header
-        token = request.get_token()
 
         # POST data
         data = {
-            "subject": request.get_data("subject"),
-            "description": request.get_data("description"),
-            "privacy_mode": request.get_bool_data("privacy", null=True, default=False),
-            "place": request.get_data("place", null=True),
-            "photo": request.get_file("photo", null=True),
-            "latitude": request.get_data("latitude", null=True),
-            "longitude": request.get_data("longitude", null=True),
+            "device_identity": request.get_data("deviceIdentity"),
         }
 
         # action
-        user = user_manager.get_user_from_token(token)
-        user.raise_issue(data)
-        return JSONResponse.output()
+        user = user_manager.get_user_from_device_identity(data["device_identity"])
+        return JSONResponse.output(user.token)
 
     except Error as error:
         return JSONResponse.output(error)
