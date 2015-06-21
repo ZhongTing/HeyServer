@@ -10,7 +10,10 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import sys
+
 import os
+
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -87,6 +90,8 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+ANDROID_NOTIFICATION_API_KEY = "AIzaSyB_6pPtqcNE4_LbVMwRx3qHwgg-pw53t_o"
 
 SERVER_URL = "http://140.124.181.195:8000"
 
