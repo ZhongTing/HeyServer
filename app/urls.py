@@ -18,6 +18,15 @@ urlpatterns += patterns(
 )
 
 urlpatterns += patterns(
+    'api.filter',
+    url(r'^api/filter/list', 'list'),
+    url(r'^api/filter/add', 'add'),
+    url(r'^api/filter/remove', 'remove'),
+    url(r'^api/filter/enable', 'enable'),
+    url(r'^api/filter/disable', 'disable'),
+)
+
+urlpatterns += patterns(
     '',
     url(r'^photo/(?P<path>.*)$', 'django.views.static.serve', {'document_root': STATIC_ROOT})
 )

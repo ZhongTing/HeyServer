@@ -21,6 +21,15 @@ class UserModel(models.Model):
         db_table = "user"
 
 
+class UserIssueFiltersModel(models.Model):
+    user = models.ForeignKey(UserModel)
+    subject = models.CharField(max_length=20, blank=False, null=False)
+    enable = models.BooleanField(blank=False, null=False, default=False)
+
+    class Meta:
+        db_table = "user_issue_filters"
+
+
 class IssueModel(models.Model):
     user = models.ForeignKey(UserModel)
     privacy_mode = models.BooleanField(default=False, blank=False, null=False)
