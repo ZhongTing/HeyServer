@@ -1,8 +1,8 @@
 from threading import Lock, Thread
 
 
-class Notification():
-    def __init__(self, throughput=5):
+class NotificationManager():
+    def __init__(self, throughput):
         self._throughput = throughput
         self._threads = dict()
         self._queue = list()
