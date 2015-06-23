@@ -8,6 +8,7 @@ https://docs.djangoproject.com/en/1.7/howto/deployment/wsgi/
 """
 from app.settings import NOTIFICATION_THREAD_MAX_COUNT
 from core.account.user_manager import UserManager
+from core.filter.filter_manager import FilterManager
 from core.notification.notification_manager import NotificationManager
 
 import os
@@ -18,5 +19,6 @@ from django.core.wsgi import get_wsgi_application
 
 user_manager = UserManager()
 notification_manager = NotificationManager(NOTIFICATION_THREAD_MAX_COUNT)
+filter_manager = FilterManager()
 
 application = get_wsgi_application()

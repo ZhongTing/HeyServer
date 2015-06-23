@@ -20,11 +20,11 @@ urlpatterns += patterns(
 
 urlpatterns += patterns(
     'api.filter',
-    url(r'^api/filter/list', 'list'),
-    url(r'^api/filter/add', 'add'),
-    url(r'^api/filter/remove', 'remove'),
-    url(r'^api/filter/notification/enable', 'notification_enable'),
-    url(r'^api/filter/notification/disable', 'notification_disable'),
+    url(r'^api/filter/list', 'list_filter'),
+    url(r'^api/filter/add', 'add_filter'),
+    url(r'^api/filter/remove', 'remove_filter'),
+    url(r'^api/filter/notification/enable', 'enable_filter_notification'),
+    url(r'^api/filter/notification/disable', 'disable_filter_notification'),
 )
 
 urlpatterns += patterns(

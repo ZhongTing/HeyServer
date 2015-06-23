@@ -10,6 +10,7 @@ class FilterManager():
 
         filter_object = Filter.objects.create(user=user, subject=subject)
         cache[filter_object.pk] = filter_object
+        return filter_object.pk
 
     def remove_filter(self, user, filter_id):
         cache = self._get_filter_cache(user)
