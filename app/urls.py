@@ -7,6 +7,7 @@ urlpatterns = patterns(
     url(r'^api/issue/fetch$', 'fetch_issue'),
     url(r'^api/issue/like$', 'issue_like'),
     url(r'^api/issue/regret$', 'issue_regret'),
+    url(r'^api/issue/like/fetch', 'fetch_like_issue'),
 )
 
 urlpatterns += patterns(

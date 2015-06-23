@@ -40,6 +40,13 @@ class User(UserModel):
 
         return issues
 
+    def fetch_like_issue(self):
+        issues = list()
+        for issue in self._issue_manager.fetch_like_issue():
+            issues = [issue.response_data()] + issues
+
+        return issues
+
     def get_recommend_list(self):
         return self._recommend_manager.get_commend_list()
 

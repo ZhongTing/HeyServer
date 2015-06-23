@@ -1,5 +1,6 @@
 from core.issue.issue import Issue
 from core.issue.issue_serializer import IssueSerializer
+from core.issue.like_issue import LikeIssue
 from core.utility.error_exceptions import SerializerError, IssueNotFound
 
 
@@ -10,6 +11,10 @@ class IssueManager():
     @staticmethod
     def fetch_issue(last_issue_id):
         return Issue.objects.filter(pk__gt=last_issue_id).all()
+
+    @staticmethod
+    def fetch_like_issue():
+        return LikeIssue.objects.filter(good__gte=1).all()
 
     def raise_issue(self, args):
         args["user"] = self._user.pk
