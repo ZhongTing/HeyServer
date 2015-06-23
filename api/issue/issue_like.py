@@ -21,8 +21,11 @@ def issue_like(request):
         # action
         issue_id = int(data["issue_id"])
         user = user_manager.get_user_from_token(token)
-        user.like_issue(issue_id)
-        return JSONResponse.output()
+        like_count = user.like_issue(issue_id)
+        print like_count
+        return JSONResponse.output({
+            "count": like_count
+        })
 
     except Error as error:
         return JSONResponse.output(error)

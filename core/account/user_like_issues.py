@@ -15,6 +15,8 @@ class UserLikeIssues():
             issue.save()
             UserLikeIssuesModel.objects.create(user=self._user, issue=issue)
 
+        return IssueManager.get_issue_from_id(issue_id).good
+
     def remove_issue(self, issue_id):
         relation = self._get_user_like_issue_relation(issue_id)
         if relation is not None:
@@ -22,6 +24,8 @@ class UserLikeIssues():
             issue.good = F('good') - 1
             issue.save()
             relation.delete()
+
+        return IssueManager.get_issue_from_id(issue_id).good
 
     def _get_user_like_issue_relation(self, issue_id):
         try:

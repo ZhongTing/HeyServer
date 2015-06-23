@@ -51,10 +51,10 @@ class User(UserModel):
         return self._recommend_manager.get_commend_list()
 
     def like_issue(self, issue_id):
-        self._like_issues.add_issue(issue_id)
+        return self._like_issues.add_issue(issue_id)
 
     def regret_issue(self, issue_id):
-        self._like_issues.remove_issue(issue_id)
+        return self._like_issues.remove_issue(issue_id)
 
     def update_notification_token(self, notification_token):
         self.notification_token = notification_token
