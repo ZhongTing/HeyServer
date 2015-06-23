@@ -49,3 +49,8 @@ class IssueNotFound(Error):
 class CouponError(Error):
     def __init__(self):
         super(CouponError, self).__init__("coupon is not valid!", status.HTTP_403_FORBIDDEN)
+
+
+class IssueFilterDuplicate(Error):
+    def __init__(self):
+        super(IssueFilterDuplicate, self).__init__("issue filter is duplicate", status.HTTP_409_CONFLICT)

@@ -1,4 +1,6 @@
 from core.filter.filter import Filter
+from core.utility.error_exceptions import IssueFilterDuplicate
+from django.db import IntegrityError
 
 
 class FilterManager():
@@ -8,8 +10,11 @@ class FilterManager():
     def add_filter(self, user, subject):
         cache = self._get_filter_cache(user)
 
-        filter_object = Filter.objects.create(user=user, subject=subject)
-        cache[filter_object.pk] = filter_object
+        try:
+            filter_object = Filter.objects.create(user=user, subject=subject)
+            cache[filter_object.pk] = filter_object
+        except IntegrityError:
+            raise IssueFilterDuplicate()
         return filter_object.pk
 
     def remove_filter(self, user, filter_id):
