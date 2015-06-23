@@ -35,18 +35,14 @@ class FilterManager():
 
     def enable_notification(self, user, filter_id):
         cache = self._get_filter_cache(user)
-        print cache
         if filter_id in cache:
-            print "in cache"
             filter_object = cache[filter_id]
             filter_object.enabled = True
             filter_object.save()
 
     def disable_notification(self, user, filter_id):
         cache = self._get_filter_cache(user)
-        print cache
         if filter_id in cache:
-            print "in cache"
             filter_object = cache[filter_id]
             filter_object.enabled = False
             filter_object.save()
@@ -63,5 +59,3 @@ class FilterManager():
         for filter_object in filters:
             cache = self._get_filter_cache(filter_object.user)
             cache[filter_object.pk] = filter_object
-
-        print self._user_filter_caches
