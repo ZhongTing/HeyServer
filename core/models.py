@@ -24,7 +24,7 @@ class UserModel(models.Model):
 class UserIssueFiltersModel(models.Model):
     user = models.ForeignKey(UserModel)
     subject = models.CharField(max_length=20, blank=False, null=False)
-    enable = models.BooleanField(blank=False, null=False, default=False)
+    enabled = models.BooleanField(blank=False, null=False, default=False)
 
     class Meta:
         db_table = "user_issue_filters"

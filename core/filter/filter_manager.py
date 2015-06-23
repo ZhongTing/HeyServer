@@ -29,8 +29,8 @@ class FilterManager():
     def list_filter(self, user):
         cache = self._get_filter_cache(user)
         filters = list()
-        for key, value in cache.iteritems():
-            filters.append(value)
+        for key, filter_object in cache.iteritems():
+            filters.append(filter_object.response_data)
         return filters
 
     def enable_notification(self, user, filter_id):
