@@ -1,5 +1,4 @@
 from app.settings import ANDROID_NOTIFICATION_API_KEY
-from core.account.user import User
 from gcm import GCM
 from gcm.gcm import GCMNotRegisteredException, GCMUnavailableException
 
@@ -17,12 +16,10 @@ class AndroidNotificationObject():
         token = self._user.notification_token
         if token:
             try:
-                canonical_id = self._gcm.json_request(registration_ids=[token], data=self._data)
-                if canonical_id:
-                    User.objects.filter(pk=self._user.pk).update(notification_token=canonical_id)
+                self._gcm.json_request(registration_ids=[token], data=self._data)
 
             except GCMNotRegisteredException:
-                User.objects.filter(pk=self._user.pk).update(notification_token="")
+                pass
 
             except GCMUnavailableException:
                 pass
