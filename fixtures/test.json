@@ -5,7 +5,14 @@
     "fields": {
       "user_id": 103598011,
       "access_token": "test",
-      "device_identity": "KemingChen'sIMEI"
+      "device_identity": "test"
+    }
+  },
+  {
+    "model": "core.CouponModel",
+    "pk": 1,
+    "fields": {
+      "coupon_code": "test"
     }
   }
 ]
