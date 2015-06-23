@@ -28,6 +28,7 @@ class UserIssueFiltersModel(models.Model):
 
     class Meta:
         db_table = "user_issue_filters"
+        unique_together = ("user", "subject")
 
 
 class IssueModel(models.Model):

@@ -23,8 +23,8 @@ urlpatterns += patterns(
     url(r'^api/filter/list', 'list'),
     url(r'^api/filter/add', 'add'),
     url(r'^api/filter/remove', 'remove'),
-    url(r'^api/filter/enable', 'enable'),
-    url(r'^api/filter/disable', 'disable'),
+    url(r'^api/filter/notification/enable', 'notification_enable'),
+    url(r'^api/filter/notification/disable', 'notification_disable'),
 )
 
 urlpatterns += patterns(

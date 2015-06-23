@@ -6,7 +6,7 @@ from rest_framework.decorators import api_view
 
 
 @api_view(['POST'])
-def disable_filter(request):
+def disable_filter_notification(request):
     try:
         request = RequestChecker(request)
 
