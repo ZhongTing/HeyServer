@@ -20,6 +20,7 @@ class Issue(IssueModel):
         data['subject'] = self.subject
         data['description'] = self.description
         data['timestamp'] = self.timestamp
+        data['like'] = self.good
         if self.place:
             data['place'] = self.place
         if self.photo_url:
