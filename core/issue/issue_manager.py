@@ -14,7 +14,7 @@ class IssueManager():
 
     @staticmethod
     def fetch_popular_issue():
-        return Issue.objects.filter(good__gte=1).order_by('-good', '-pk')
+        return Issue.objects.filter(good__gte=1).order_by('-good')
 
     @staticmethod
     def fetch_like_issue():

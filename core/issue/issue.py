@@ -9,7 +9,7 @@ import os
 class Issue(IssueModel):
     class Meta:
         proxy = True
-        ordering = ["-pk"]
+        ordering = ["-pk", "timestamp"]
 
     def __init__(self, *args, **kwargs):
         super(Issue, self).__init__(*args, **kwargs)
