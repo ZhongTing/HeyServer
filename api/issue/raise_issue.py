@@ -1,4 +1,4 @@
-from app.wsgi import user_manager
+from app.wsgi import user_manager, notification_manager
 from core.utility.error_exceptions import Error
 from core.utility.request_checker import RequestChecker
 from core.utility.json_response import JSONResponse
@@ -27,6 +27,7 @@ def raise_issue(request):
         # action
         user = user_manager.get_user_from_token(token)
         user.raise_issue(data)
+        notification_manager.push(data["subject"])
         return JSONResponse.output()
 
     except Error as error:
