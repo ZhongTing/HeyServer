@@ -9,31 +9,51 @@ from django.db import IntegrityError
 
 class UserManager():
     def __init__(self):
-        self.__user_token_cache = {}
+        self._user_cache_by_token = {}
+        self._user_cache_by_identity = {}
         self.update_all_user_recommends()
 
     def get_user_from_token(self, token, use_cache=True):
-        if use_cache and token in self.__user_token_cache:
-            return self.__user_token_cache[token]
+        if use_cache and token in self._user_cache_by_token:
+            return self._user_cache_by_token[token]
 
         try:
             user = User.objects.get(access_token=token)
-            self.__user_token_cache[token] = user
+            self._user_cache_by_token[user.token] = user
+            self._user_cache_by_identity[user.pk] = user
             return user
 
         except UserModel.DoesNotExist:
             raise AuthorizationError()
 
-    @staticmethod
-    def get_user_from_device_identity(device_identity):
-        user_identity = Utility.hash_to_key(device_identity)
+    def get_users_notification_token(self, user_ids):
+        tokens = list()
+        for user_id in user_ids:
+            user = self.get_user_from_identity(user_id)
+            if user and user.token:
+                tokens.append(user.token)
+        return tokens
+
+    def get_user_from_identity(self, user_identity):
+        if user_identity in self._user_cache_by_identity:
+            return self._user_cache_by_identity[user_identity]
+
         try:
-            return User.objects.get(user_id=user_identity)
-        except User.DoesNotExist:
-            raise AuthorizationError()
+            user = User.objects.get(user_id=user_identity)
+            self._user_cache_by_token[user.token] = user
+            self._user_cache_by_identity[user.pk] = user
+            return user
+
+        except UserModel.DoesNotExist:
+            return None
+
+    @classmethod
+    def get_user_from_device_identity(cls, device_identity):
+        user_identity = Utility.hash_to_key(device_identity)
+        return cls.get_user_from_identity(user_identity)
 
     def update_all_user_recommends(self):
-        for token, user in self.__user_token_cache.iteritems():
+        for token, user in self._user_cache_by_token.iteritems():
             user.update_commends()
 
         threading.Timer(5, self.update_all_user_recommends).start()

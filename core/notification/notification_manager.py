@@ -1,40 +1,12 @@
-from threading import Lock, Thread
+from app.settings import NOTIFICATION_THREAD_MAX_COUNT
+from core.notification.android_notification_object import AndroidNotificationObject
+from core.utility.notification_queue import NotificationQueue
 
 
-class NotificationManager():
-    def __init__(self, throughput):
-        self._throughput = throughput
-        self._threads = dict()
-        self._queue = list()
-        self._lock = Lock()
+class NotificationManager(NotificationQueue):
+    def __init__(self, filters):
+        NotificationQueue.__init__(self, NOTIFICATION_THREAD_MAX_COUNT)
+        self._filters = filters
 
-        for i in range(throughput):
-            self._threads[i] = Thread(target=self.execute)
-            self._threads[i].start()
-
-    def push(self, push_object):
-        self._lock.acquire()
-        self._queue.append(push_object)
-        self._lock.release()
-        for i in self._threads:
-            if not self._threads[i].isAlive():
-                self._threads[i] = Thread(target=self.execute)
-                self._threads[i].start()
-                break
-
-    def execute(self):
-        push_object = self._get_push_object()
-        if push_object is not None:
-            push_object.send()
-            self.execute()
-
-    def _get_push_object(self):
-        push_object = None
-
-        self._lock.acquire()
-        if len(self._queue) > 0:
-            push_object = self._queue[0]
-            self._queue.remove(push_object)
-        self._lock.release()
-
-        return push_object
+    def push(self, subject):
+        self._push(AndroidNotificationObject(subject))

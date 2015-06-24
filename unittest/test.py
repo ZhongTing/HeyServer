@@ -1,7 +1,7 @@
 # coding:utf8
 from core.account.user import User
 from core.notification.android_notification_object import AndroidNotificationObject
-from core.notification.notification_manager import NotificationManager
+from core.notification.notification_manager import NotificationQueue
 from django.test import TestCase
 
 
@@ -16,7 +16,7 @@ class TestAnything(TestCase):
         # notification_token = "dJjkYSurmMU:APA91bFO1skpGpYnwqq0LwJr4LvryzKynNGWgVlmZVRI6yqSrS4uAKFbcAVmvHUGwdFiwEMFQ1YzYlso4MTcIKsO68YoKd7UHXKO8RECN_MZyHynRfb6c2PCXekWTvK__4paFWAkpNcE"
         user = User.objects.create(user_id=user_id, device_identity=device_identity,
                                    notification_token=notification_token)
-        notification = NotificationManager(5)
+        notification = NotificationQueue(5)
         for i in range(1, 10):
             notification.push(AndroidNotificationObject(user, "起床尿尿囉 %d" % i))
 

@@ -7,6 +7,10 @@ class FilterManager():
     def __init__(self):
         self._load_all_filters()
 
+    @property
+    def filters(self):
+        return self._user_filter_caches
+
     def add_filter(self, user, subject):
         cache = self._get_filter_cache(user)
 
