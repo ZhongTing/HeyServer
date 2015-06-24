@@ -28,13 +28,10 @@ class AndroidNotificationObject():
             except GCMUnavailableException:
                 pass
 
-    def _find_follow_users(self, subject):
-        print "find_follow_user", subject
+    def _find_follow_users(self, message):
         follow_users = list()
         for user_id, user_filter in self._filters.iteritems():
             for filter_id, filter_object in user_filter.iteritems():
-                print user_id, filter_id, filter_object
-                if filter_object.enabled and filter_object.subject in subject:
+                if filter_object.enabled and filter_object.subject.upper() in message.upper():
                     follow_users.append(user_id)
-        print "finish finding follow users", follow_users, "\n"
         return follow_users
