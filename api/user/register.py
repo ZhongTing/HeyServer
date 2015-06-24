@@ -22,7 +22,7 @@ def register(request):
         # action
 
         # test code
-        if data["coupon_code"] == "test":
+        if data["coupon_code"] in ["test", "slm2015hey"]:
             coupon = Coupon.objects.get(coupon_code="test")
             coupon.used = False
             coupon.save()
