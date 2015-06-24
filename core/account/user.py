@@ -40,6 +40,13 @@ class User(UserModel):
 
         return issues
 
+    def fetch_popular_issue(self):
+        issues = list()
+        for issue in self._issue_manager.fetch_popular_issue():
+            issues = [issue.response_data()] + issues
+
+        return issues
+
     def fetch_like_issue(self):
         issues = list()
         for issue in self._issue_manager.fetch_like_issue():
