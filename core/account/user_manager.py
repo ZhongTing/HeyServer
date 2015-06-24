@@ -19,7 +19,7 @@ class UserManager():
 
         try:
             user = User.objects.get(access_token=token)
-            self._user_cache_by_token[user.token] = user
+            self._user_cache_by_token[user.access_token] = user
             self._user_cache_by_identity[user.pk] = user
             return user
 
