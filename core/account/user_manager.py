@@ -47,10 +47,12 @@ class UserManager():
         except UserModel.DoesNotExist:
             return None
 
-    @classmethod
-    def get_user_from_device_identity(cls, device_identity):
+    def get_user_from_device_identity(self, device_identity):
         user_identity = Utility.hash_to_key(device_identity)
-        return cls.get_user_from_identity(user_identity)
+        user = self.get_user_from_identity(user_identity)
+        if not user:
+            raise DeviceIdentityExistedError()
+        return user
 
     def update_all_user_recommends(self):
         for token, user in self._user_cache_by_token.iteritems():
