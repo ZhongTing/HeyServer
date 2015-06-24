@@ -18,6 +18,6 @@ from django.core.wsgi import get_wsgi_application
 
 user_manager = UserManager()
 filter_manager = FilterManager()
-notification_manager = NotificationManager(filter_manager)
+notification_manager = NotificationManager(user_manager, filter_manager.filters)
 
 application = get_wsgi_application()

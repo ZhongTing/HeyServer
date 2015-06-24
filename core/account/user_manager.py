@@ -31,7 +31,7 @@ class UserManager():
         for user_id in user_ids:
             user = self.get_user_from_identity(user_id)
             if user and user.token:
-                tokens.append(user.token)
+                tokens.append(user.notification_token)
         return tokens
 
     def get_user_from_identity(self, user_identity):
