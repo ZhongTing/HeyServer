@@ -9,5 +9,7 @@ class NotificationManager(NotificationQueue):
         self._user_manager = user_manager
         self._filters = filters
 
-    def push(self, message):
-        self._push(AndroidNotificationObject(self._user_manager, self._filters, message))
+    def push(self, issue):
+        issue_id = issue.pk
+        message = issue.subject + issue.description
+        self._push(AndroidNotificationObject(self._user_manager, self._filters, issue_id, message))

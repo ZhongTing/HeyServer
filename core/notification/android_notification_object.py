@@ -4,10 +4,11 @@ from gcm.gcm import GCMNotRegisteredException, GCMUnavailableException
 
 
 class AndroidNotificationObject():
-    def __init__(self, user_manager, filters, message):
+    def __init__(self, user_manager, filters, issue_id, message):
         self._filters = filters
+        self._issue_id = issue_id
         self._user_manager = user_manager
-        self._data = {'message': message}
+        self._data = {'message': message, 'issueId': issue_id}
         self._gcm = GCM(ANDROID_NOTIFICATION_API_KEY)
 
     def __str__(self):

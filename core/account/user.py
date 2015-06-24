@@ -31,7 +31,7 @@ class User(UserModel):
         self._recommend_manager.update(issues)
 
     def raise_issue(self, args):
-        self._issue_manager.raise_issue(args)
+        return self._issue_manager.raise_issue(args)
 
     def fetch_issue(self, last_issue_id):
         issues = list()

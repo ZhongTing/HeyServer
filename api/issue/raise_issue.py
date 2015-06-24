@@ -26,9 +26,8 @@ def raise_issue(request):
 
         # action
         user = user_manager.get_user_from_token(token)
-        user.raise_issue(data)
-        message = data["subject"] + data["description"]
-        notification_manager.push(message)
+        issue = user.raise_issue(data)
+        notification_manager.push(issue)
         return JSONResponse.output()
 
     except Error as error:

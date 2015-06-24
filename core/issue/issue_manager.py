@@ -27,6 +27,7 @@ class IssueManager():
         if serializer.is_valid():
             issue = serializer.save()
             issue.save_photo(args["photo"])
+            return issue
         else:
             raise SerializerError(serializer.errors)
 
