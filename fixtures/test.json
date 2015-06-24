@@ -14,5 +14,54 @@
     "fields": {
       "coupon_code": "test"
     }
+  },
+  {
+    "model": "core.CouponModel",
+    "pk": 2,
+    "fields": {
+      "coupon_code": "demo1"
+    }
+  },
+  {
+    "model": "core.CouponModel",
+    "pk": 3,
+    "fields": {
+      "coupon_code": "demo2"
+    }
+  },
+  {
+    "model": "core.CouponModel",
+    "pk": 4,
+    "fields": {
+      "coupon_code": "demo3"
+    }
+  },
+  {
+    "model": "core.CouponModel",
+    "pk": 5,
+    "fields": {
+      "coupon_code": "demo4"
+    }
+  },
+  {
+    "model": "core.CouponModel",
+    "pk": 6,
+    "fields": {
+      "coupon_code": "demo5"
+    }
+  },
+  {
+    "model": "core.CouponModel",
+    "pk": 7,
+    "fields": {
+      "coupon_code": "FinalDemo"
+    }
+  },
+  {
+    "model": "core.CouponModel",
+    "pk": 8,
+    "fields": {
+      "coupon_code": "slm2015hey"
+    }
   }
 ]
