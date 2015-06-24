@@ -4,8 +4,9 @@ from gcm.gcm import GCMNotRegisteredException, GCMUnavailableException
 
 
 class AndroidNotificationObject():
-    def __init__(self, user_manager, filters, issue_id, message):
+    def __init__(self, user_manager, filters, user_id, issue_id, message):
         self._filters = filters
+        self._user_id = user_id
         self._issue_id = issue_id
         self._user_manager = user_manager
         self._data = {'message': message, 'issueId': issue_id}
@@ -32,6 +33,8 @@ class AndroidNotificationObject():
     def _find_follow_users(self, message):
         follow_users = list()
         for user_id, user_filter in self._filters.iteritems():
+            if user_id == self._issue_id:
+                continue
             for filter_id, filter_object in user_filter.iteritems():
                 if filter_object.enabled and filter_object.subject.upper() in message.upper():
                     follow_users.append(user_id)
