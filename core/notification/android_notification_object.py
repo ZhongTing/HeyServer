@@ -33,7 +33,7 @@ class AndroidNotificationObject():
     def _find_follow_users(self, message):
         follow_users = list()
         for user_id, user_filter in self._filters.iteritems():
-            if user_id == self._issue_id:
+            if user_id == self._user_id:
                 continue
             for filter_id, filter_object in user_filter.iteritems():
                 if filter_object.enabled and filter_object.subject.upper() in message.upper():
